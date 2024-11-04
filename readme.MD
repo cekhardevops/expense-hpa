@@ -27,3 +27,11 @@ this gives metrics like cpu and memory utilization of each pod
 curl -sS https://webinstall.dev/k9s | bash
 ```
 
+* install apache benchmark. trigger below command to test the HPA
+
+```
+dnf install httpd-utils -y
+
+ab -n 50000 -c 500 -s 120 http://a5b18285c332c412181b28a9ff4f463e-1694643937.us-east-1.elb.amazonaws.com:80/
+```
+

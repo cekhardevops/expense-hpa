@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: expense
+  labels:
+    project: expense
+    environment: dev
+    app: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      project: expense
+      environment: dev
+      app: frontend
+  template:
+    metadata:
+      labels:
+        project: expense
+        environment: dev
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: cekharch/frontend:v1
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: expense
+  labels:
+    project: expense
+    environment: dev
+    app: frontend
+spec:
+  type: LoadBalancer
+  selector:
+    project: expense
+    environment: dev
+    app: frontend
+  ports:
+    - port: 80  
+      targetPort: 80
